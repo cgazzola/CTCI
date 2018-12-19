@@ -30,6 +30,27 @@ public class BinaryTree {
         }
     }
 
+    public void inOrderTraversal(BinaryTreeNode node) {
+        if (node != null) {
+            inOrderTraversal(node.getLeft());
+            System.out.print(node.getVal() + " ");
+            inOrderTraversal(node.getRight());
+        }
+    }
+
+    public static void main(String[] args) {
+        BinaryTree tree = new BinaryTree();
+        tree.addNode(50);
+        tree.addNode(30);
+        tree.addNode(60);
+        tree.addNode(52);
+        tree.addNode(62);
+        tree.addNode(51);
+        tree.addNode(54);
+        tree.addNode(58);
+        tree.inOrderTraversal(tree.root);
+    }
+
 }
 
 class BinaryTreeNode {
