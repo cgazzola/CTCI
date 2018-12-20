@@ -1,5 +1,4 @@
-import TreesAndGraphs.BinaryTree;
-import TreesAndGraphs.BinaryTreeNode;
+package TreesAndGraphs;
 
 public class MinimalTree extends BinaryTree {
 
