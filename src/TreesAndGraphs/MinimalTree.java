@@ -1,5 +1,9 @@
 package TreesAndGraphs;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+
 public class MinimalTree extends BinaryTree {
 
     public static void main(String[] args) {
@@ -8,7 +12,8 @@ public class MinimalTree extends BinaryTree {
 
         MinimalTree minimalTree = new MinimalTree();
         BinaryTreeNode root = minimalTree.createMinimalBST(arr);
-        minimalTree.inOrderTraversal(root);
+        minimalTree.createList(root);
+
     }
 
     BinaryTreeNode createMinimalBST(int[] arr) {
@@ -26,5 +31,16 @@ public class MinimalTree extends BinaryTree {
         node.setRight(createMinimalBST(arr, mid + 1, end));
         return node;
     }
+
+    public void createList(BinaryTreeNode node) {
+        ArrayList<ArrayList<Integer>> lists = new ArrayList<>();
+        if (node == null) {
+            return;
+        }
+        createList(node.getLeft());
+        System.out.println(node.getVal());
+        createList(node.getRight());
+    }
+
 
 }
