@@ -53,7 +53,7 @@ public class LCA {
         n30.setParent(root);
 
         LCA lca = new LCA();
-        System.out.println(lca.commonAncestor2(root, n7, n17).getVal());
+        System.out.println(lca.commonAncestor3(root, n7, n17).getVal());
 
     }
 
@@ -110,6 +110,32 @@ public class LCA {
         }
         BinaryTreeNode parent = node.getParent();
         return parent.getLeft() == node ? parent.getRight() : parent.getLeft();
+    }
+
+    BinaryTreeNode commonAncestor3(BinaryTreeNode root, BinaryTreeNode p, BinaryTreeNode q) {
+        /* Error check - one node is not in the tree */
+        if (!covers(root, p) || !(covers(root, q))) {
+            return null;
+        }
+        return ancestor3Helper(root, p, q);
+    }
+
+    BinaryTreeNode ancestor3Helper(BinaryTreeNode root, BinaryTreeNode p, BinaryTreeNode q) {
+        if (root == null) {
+            return null;
+        } else if (root == p) {
+            return p;
+        } else if (root == q) {
+            return q;
+        }
+
+        boolean pIsOnLeft = covers(root.getLeft(), p);
+        boolean qIsOnLeft = covers(root.getLeft(), q);
+        if (pIsOnLeft != qIsOnLeft) { // Nodes are on different sides
+            return root;
+        }
+        BinaryTreeNode childSide = pIsOnLeft ? root.getLeft() : root.getRight();
+        return ancestor3Helper(childSide, p, q);
     }
 
 
