@@ -1,5 +1,8 @@
 package TreesAndGraphs;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BinaryTree {
     public BinaryTreeNode root;
 
@@ -52,6 +55,23 @@ public class BinaryTree {
             postOrderTraversal(node.getRight());
             System.out.print(node.getVal() + " ");
         }
+    }
+
+    public void bfs(BinaryTreeNode root) {
+        Queue<BinaryTreeNode> queue = new LinkedList<>();
+        if (root == null) return;
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            BinaryTreeNode node = queue.poll();
+            System.out.print(node.getVal() + " ");
+            if (node.getLeft() != null) {
+                queue.add(node.getLeft());
+            }
+            if (node.getRight() != null) {
+                queue.add(node.getRight());
+            }
+        }
+
     }
 
 
