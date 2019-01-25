@@ -61,4 +61,16 @@ public class AlternateTreeNode {
         }
         return null;
     }
+
+    public AlternateTreeNode getIthNode(int i) {
+        int leftSize = left == null ? 0 : left.size();
+        if (i < leftSize) {
+            return left.getIthNode(i);
+        } else if (i == leftSize) {
+            return this;
+        } else {
+            /* skipping over leftSize + 1 nodes, so subtract them */
+            return right.getIthNode(i - (leftSize + 1));
+        }
+    }
 }
