@@ -1,5 +1,7 @@
 package TreesAndGraphs;
 
+import java.util.HashMap;
+
 public class PathsWithSum {
 
     public static void main (String[] args) {
@@ -23,10 +25,11 @@ public class PathsWithSum {
         n3neg.setRight(n11);
 
         PathsWithSum solution = new PathsWithSum();
-        solution.countPathsWithSum(root, 8);
+        solution.countPathsWithSum2(root, 8);
 
     }
 
+    /* Brute force solution */
     int countPathsWithSum(BinaryTreeNode root, int targetSum) {
         if (root == null) return 0;
 
@@ -55,6 +58,42 @@ public class PathsWithSum {
         totalPaths += countPathsWithSumFromNode(node.getLeft(), targetSum, currentSum);
         totalPaths += countPathsWithSumFromNode(node.getRight(), targetSum, currentSum);
         return totalPaths;
+    }
+
+    /* Optimized Solution */
+    int countPathsWithSum2(BinaryTreeNode root, int targetSum) {
+        if (root == null) return 0;
+        HashMap<Integer, Integer> pathCount = new HashMap<>();
+        incrementHashTable(pathCount, 0, 1); // Needed if target path starts at root
+        return countPathsWithSum(root, targetSum, 0, pathCount);
+    }
+
+    int countPathsWithSum(BinaryTreeNode node, int targetSum, int runningSum,
+                          HashMap<Integer, Integer> pathCount) {
+        if (node == null ) {
+            return 0; // Base case
+        }
+
+        runningSum += node.getVal();
+        incrementHashTable(pathCount, runningSum, 1); // Add runningSum
+
+        /* Count paths with sum ending at the current node */
+        int sum = runningSum - targetSum;
+        int totalPaths = pathCount.containsKey(sum) ? pathCount.get(sum) : 0;
+
+        /* Count paths with sum on the left and right */
+        totalPaths += countPathsWithSum(node.getLeft(), targetSum, runningSum, pathCount);
+        totalPaths += countPathsWithSum(node.getRight(), targetSum, runningSum, pathCount);
+
+        incrementHashTable(pathCount, runningSum, -1); //Remove runningSum
+        return totalPaths;
+    }
+
+    void incrementHashTable(HashMap<Integer, Integer> hashTable, int key, int delta) {
+        if (!hashTable.containsKey(key)) {
+            hashTable.put(key, 0);
+        }
+        hashTable.put(key, hashTable.get(key) + delta);
     }
 
 }
