@@ -44,7 +44,7 @@ public class BSTSequences {
         return result;
     }
 
-    /* Weave lists together in all possible ways. This algorithm works by removing the
+    /* Weave lists together in all possible waysRecursive. This algorithm works by removing the
        head from one list, recursing, and then doing the same thing with the other list */
 
     void weaveLists(LinkedList<Integer> first,
